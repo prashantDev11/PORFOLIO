@@ -1,24 +1,33 @@
 "use client";
+
 import Image from "next/image";
 import { useState } from "react";
 
-const Language = () => {
-  const [selected, setSelected] = useState(null);
+// ✅ Define type for your skills
+type Skill = {
+  img: string;
+  label: string; // 👈 replaced "icon" with "label"
+};
 
-  const MyImage = [
-    { img: "/images/Skill/Html.png", icon: "HTML" },
-    { img: "/images/Skill/Css.png", icon: "CSS" },
-    { img: "/images/Skill/JavaScript.png", icon: "JavaScript" },
-    { img: "/images/Skill/React.png", icon: "React" },
-    { img: "/images/Skill/Next.png", icon: "Next.js" },
-    { img: "/images/Skill/Talwind.png", icon: "Tailwind" },
-    { img: "/images/Skill/MySql.png", icon: "My Sql" },
-    { img: "/images/Skill/Mongo.png", icon: "MongoDB" },
-    { img: "/images/Skill/C.png", icon: "C Programming" },
-    { img: "/images/Skill/C+.png", icon: "C+ Programming" },
-    { img: "/images/Skill/PHP.png", icon: "PHP" },
-    { img: "/images/Skill/Bootstrap.png", icon: "Bootstrap" },
-  ];
+// ✅ Skills array
+const skills: Skill[] = [
+  { img: "/images/Skill/Html.png", label: "HTML" },
+  { img: "/images/Skill/Css.png", label: "CSS" },
+  { img: "/images/Skill/JavaScript.png", label: "JavaScript" },
+  { img: "/images/Skill/React.png", label: "React" },
+  { img: "/images/Skill/Next.png", label: "Next.js" },
+  { img: "/images/Skill/Talwind.png", label: "Tailwind" },
+  { img: "/images/Skill/MySql.png", label: "My SQL" },
+  { img: "/images/Skill/Mongo.png", label: "MongoDB" },
+  { img: "/images/Skill/C.png", label: "C Programming" },
+  { img: "/images/Skill/C+.png", label: "C+ Programming" },
+  { img: "/images/Skill/PHP.png", label: "PHP" },
+  { img: "/images/Skill/Bootstrap.png", label: "Bootstrap" },
+];
+
+const Language = () => {
+  // ✅ Ensure state has correct type
+  const [selected, setSelected] = useState<Skill>(skills[0]);
 
   return (
     <section>
@@ -32,20 +41,19 @@ const Language = () => {
               </p>
             </div>
 
-     
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-           
+              {/* Grid of skills */}
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-6 place-items-center bg-white/60 rounded-2xl p-6 shadow-md">
-                {MyImage.map((value, index) => (
+                {skills.map((value, index) => (
                   <div
                     key={index}
                     className={`p-3 rounded-xl border border-primary/10 shadow-sm hover:shadow-md cursor-pointer transition 
-                    ${selected?.icon === value.icon ? "bg-primary/10 ring-2 ring-primary/40" : "bg-white"}`}
+                      ${selected.label === value.label ? "bg-primary/10 ring-2 ring-primary/40" : "bg-white"}`}
                     onClick={() => setSelected(value)}
                   >
                     <Image
                       src={value.img}
-                      alt={value.icon}
+                      alt={value.label}
                       width={70}
                       height={70}
                       className="rounded-md"
@@ -54,38 +62,23 @@ const Language = () => {
                 ))}
               </div>
 
-             
+              {/* Preview section */}
               <div className="flex justify-center">
                 <div className="p-10 bg-white rounded-2xl shadow-lg flex flex-col items-center">
-                  {!selected ? (
-                    <>
-                      <img
-                        src="/images/Skill/Nex.png"
-                
-                        alt="default"
-                        className="w-30 h-40  "
-                      />
-                      <p className="mt-4 text-gray-500">Nexolinx [IT Company]</p>
-                    </>
-                  ) : (
-                    <>
-                      <Image
-                        src={selected.img}
-                        alt={selected.icon}
-                        width={120}
-                        height={120}
-                        className="rounded-xl"
-                      />
-                      <p className="mt-4 text-lg font-semibold text-gray-800">
-                        {selected.icon}
-                      </p>
-                      
-                    </>
-                  )}
+                  <Image
+                    src={selected.img}
+                    alt={selected.label}
+                    width={120}
+                    height={120}
+                    className="rounded-xl"
+                  />
+                  {/* 👇 replaced icon with label */}
+                  <p className="mt-4 text-lg font-semibold text-gray-800">
+                    {selected.label}
+                  </p>
                 </div>
               </div>
             </div>
-           
           </div>
         </div>
       </div>
