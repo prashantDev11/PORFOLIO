@@ -54,7 +54,7 @@ const Language = () => {
                 ))}
               </div>
 
-              {/* Right Preview Box */}
+             
               <div className="flex justify-center">
                 <div className="p-10 bg-white rounded-2xl shadow-lg flex flex-col items-center">
                   {!selected ? (
